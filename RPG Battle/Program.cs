@@ -73,12 +73,14 @@ namespace RPG_Battle
                 if (classChoice == "a")
                 {
                     int playerDamage = human.getAttackDamage();
-                    npc.receiveAttackDamage(playerDamage);
-
+                    npc.getHit(playerDamage);
                 }
                 else
                 {
-
+                    int npcDamage = npc.getAttackDamage();
+                    human.getHit(npcDamage);
+                    int playerDefended = human.getDefense();
+                    human.doTheDefend(playerDefended, npcDamage);
                 }
                 // Get NPC turn
 
