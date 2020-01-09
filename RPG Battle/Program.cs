@@ -57,8 +57,34 @@ namespace RPG_Battle
                 tempDefense = 10;
                 tempAgility = 5;
             }
+            tempName = "George";
             npc.setup(tempName, tempAttack, tempDefense, tempAgility);
 
+            bool done = false;
+            while (!done)
+            {
+                // Display stats
+                human.display();
+                npc.display();
+                // Get human turn
+                Console.WriteLine("Do you want to attack (a), or defend (d)?");
+                classChoice = Console.ReadLine();
+                
+                if (classChoice == "a")
+                {
+                    int playerDamage = human.getAttackDamage();
+                    npc.receiveAttackDamage(playerDamage);
+
+                }
+                else
+                {
+
+                }
+                // Get NPC turn
+
+                // Check for deaths
+            }
         }
+
     }
 }
