@@ -48,19 +48,18 @@ namespace RPG_Battle
 
         public int getDefense()
         {
-            int defendedDamage = random.Next(defense-1, defense+1);
+            int defendedDamage = random.Next(defense-3, defense+1);
             return defendedDamage;
         }
-        public void doTheDefend(int defendedDamage, int npcDamage)
+        public void doTheDefend(int defendedDamage)
         {
-            int damageReduced = npcDamage - defendedDamage;
+            int damageReduced = defendedDamage;
             if (damageReduced <0)
             {
                 damageReduced = 0;
             }
-            Console.WriteLine( name + " defended for " + defendedDamage);
+            Console.WriteLine( name + " defended for " + damageReduced);
             hp = hp + damageReduced;
-            Console.WriteLine(name + " hp is now " + hp);
         }
     }
 }

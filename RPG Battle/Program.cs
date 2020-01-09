@@ -16,6 +16,7 @@ namespace RPG_Battle
             int tempDefense = 0;
             int tempAgility = 0;
             int npcChoice = random.Next(1, 4);
+            int npcAction;
             Console.WriteLine("What is your name?");
             tempName = Console.ReadLine();
             Console.WriteLine("Would you rather be a Knight (k), Rogue (r), or Tank (t)?");
@@ -77,12 +78,21 @@ namespace RPG_Battle
                 }
                 else
                 {
-                    int npcDamage = npc.getAttackDamage();
-                    human.getHit(npcDamage);
                     int playerDefended = human.getDefense();
-                    human.doTheDefend(playerDefended, npcDamage);
+                    human.doTheDefend(playerDefended);
                 }
                 // Get NPC turn
+                npcAction = random.Next(1, 2);
+                if (npcAction == 1)
+                {
+                    int npcDamage = npc.getAttackDamage();
+                    human.getHit(npcDamage);
+                }
+                else
+                {
+                    int npcDefended = npc.getDefense();
+                    npc.doTheDefend(npcDefended);
+                }
 
                 // Check for deaths
             }
