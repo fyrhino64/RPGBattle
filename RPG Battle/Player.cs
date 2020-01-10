@@ -24,7 +24,7 @@ namespace RPG_Battle
         public void display()
         {
             Console.WriteLine(" Name is " + name);
-            Console.WriteLine("- current hp is " + hp);
+            Console.WriteLine("- current hp: " + hp);
             Console.WriteLine("- attack is: " + attack + " Defense is: " + defense + " and agility is: " + agility );
         }
 
@@ -43,12 +43,13 @@ namespace RPG_Battle
             }
             hp = hp - damageTaken;
             Console.WriteLine( name + " has taken " + damageTaken + " damage.");
+            Console.WriteLine("\n");
 
         }
 
         public int getDefense()
         {
-            int defendedDamage = random.Next(defense-3, defense+1);
+            int defendedDamage = random.Next(defense-3, defense);
             return defendedDamage;
         }
         public void doTheDefend(int defendedDamage)
@@ -60,6 +61,16 @@ namespace RPG_Battle
             }
             Console.WriteLine( name + " defended for " + damageReduced);
             hp = hp + damageReduced;
+            if (hp >100)
+            {
+                hp = 100;
+            }
+            Console.WriteLine("\n");
+        }
+        public string getName()
+        {
+            Console.Write(name);
+            return name;
         }
     }
 }

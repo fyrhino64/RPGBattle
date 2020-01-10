@@ -68,32 +68,41 @@ namespace RPG_Battle
                 human.display();
                 npc.display();
                 // Get human turn
+                Console.WriteLine("\n");
                 Console.WriteLine("Do you want to attack (a), or defend (d)?");
                 classChoice = Console.ReadLine();
-                
+                int npcTurn = random.Next(1, 3);
+
                 if (classChoice == "a")
                 {
-                    int playerDamage = human.getAttackDamage();
-                    npc.getHit(playerDamage);
+                    Console.WriteLine("You attack! ");
+                    int humanDamage = human.getAttackDamage();
+                    npc.getHit(humanDamage);
+                   
                 }
-                else
+                else if ((classChoice == "d") && (npcTurn>1))
                 {
-                    int playerDefended = human.getDefense();
-                    human.doTheDefend(playerDefended);
+                    int humanDefended = human.getDefense();
+                    human.doTheDefend(humanDefended);
                 }
-                // Get NPC turn
-                npcAction = random.Next(1, 2);
-                if (npcAction == 1)
+                // get npc turn
+
+                if (npcTurn == 1)
                 {
+                    npc.getName();
+                    Console.Write(" will attack! ");
                     int npcDamage = npc.getAttackDamage();
                     human.getHit(npcDamage);
                 }
                 else
                 {
+                    npc.getName();
+                    Console.Write(" will defend!");
                     int npcDefended = npc.getDefense();
                     npc.doTheDefend(npcDefended);
                 }
-
+                
+                
                 // Check for deaths
             }
         }
