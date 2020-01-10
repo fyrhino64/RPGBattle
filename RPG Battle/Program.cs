@@ -16,7 +16,10 @@ namespace RPG_Battle
             int tempDefense = 0;
             int tempAgility = 0;
             int npcChoice = random.Next(1, 4);
-            int npcAction;
+            int humanDefended = 0;
+            int npcDefended = 0;
+            int npcDamage = 0;
+            int humanDamage = 0;
             Console.WriteLine("What is your name?");
             tempName = Console.ReadLine();
             Console.WriteLine("Would you rather be a Knight (k), Rogue (r), or Tank (t)?");
@@ -64,6 +67,7 @@ namespace RPG_Battle
             bool done = false;
             while (!done)
             {
+                Console.WriteLine("\n");
                 // Display stats
                 human.display();
                 npc.display();
@@ -73,35 +77,38 @@ namespace RPG_Battle
                 classChoice = Console.ReadLine();
                 int npcTurn = random.Next(1, 3);
 
-                if (classChoice == "a")
+                // get npc turn
+                if ((npcTurn == 1) && (classChoice == "a"))
                 {
                     Console.WriteLine("You attack! ");
-                    int humanDamage = human.getAttackDamage();
-                    npc.getHit(humanDamage);
-                   
-                }
-                else if ((classChoice == "d") && (npcTurn>1))
-                {
-                    int humanDefended = human.getDefense();
-                    human.doTheDefend(humanDefended);
-                }
-                // get npc turn
-
-                if (npcTurn == 1)
-                {
+                    humanDamage = human.getAttackDamage();
                     npc.getName();
-                    Console.Write(" will attack! ");
-                    int npcDamage = npc.getAttackDamage();
+                    Console.WriteLine(" will attack! ");
+                    npcDamage = npc.getAttackDamage();
                     human.getHit(npcDamage);
+                    npc.getHit(humanDamage);
                 }
-                else
+                else if ((npcTurn == 2) && (classChoice == "d"))
                 {
+                    humanDefended = human.getDefense();
+                    human.doTheDefend(humanDefended);
                     npc.getName();
-                    Console.Write(" will defend!");
-                    int npcDefended = npc.getDefense();
+                    Console.WriteLine(" will defend!");
+                    npcDefended = npc.getDefense();
                     npc.doTheDefend(npcDefended);
                 }
-                
+                else if ((npcTurn == 1) && (classChoice == "d"))
+                {
+                    npc.getName();
+                    Console.WriteLine(" will attack for " + npcDamage);
+                    human.defendAgainstAttack(humanDefended, npcDamage);
+                }
+                else if ((npcTurn ==2) && (classChoice == "a"))
+                {
+                    human.getName();
+                    Console.WriteLine(" will attack for " + humanDamage);
+                    npc.defendAgainstAttack(npcDefended, humanDamage);
+                }
                 
                 // Check for deaths
             }

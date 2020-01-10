@@ -43,7 +43,6 @@ namespace RPG_Battle
             }
             hp = hp - damageTaken;
             Console.WriteLine( name + " has taken " + damageTaken + " damage.");
-            Console.WriteLine("\n");
 
         }
 
@@ -65,12 +64,29 @@ namespace RPG_Battle
             {
                 hp = 100;
             }
-            Console.WriteLine("\n");
+        }
+
+        public void defendAgainstAttack(int defendedDamage, int attackDamage)
+        {
+            Console.WriteLine(name + " will defend against the attack!");
+            if (defendedDamage >= attackDamage)
+            {
+                hp = hp + attackDamage;
+            }
+            else if (defendedDamage < attackDamage)
+            {
+                hp = hp - (attackDamage - defendedDamage);
+            }
+            else
+            {
+                hp = hp;
+            }
         }
         public string getName()
         {
             Console.Write(name);
             return name;
         }
+        
     }
 }
