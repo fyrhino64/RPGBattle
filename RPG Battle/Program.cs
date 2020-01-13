@@ -109,9 +109,22 @@ namespace RPG_Battle
                     Console.WriteLine(" will attack for " + humanDamage);
                     npc.defendAgainstAttack(npcDefended, humanDamage);
                 }
-                
                 // Check for deaths
+                if (human.checkIfDead())
+                {
+                    done = true;
+                    break;
+                }
+                if (npc.checkIfDead())
+                {
+                    done = true;
+                    break;
+                }
+                
             }
+            Console.ResetColor();
+            Console.WriteLine("Please hit any key to end the game");
+            Console.ReadKey();
         }
 
     }

@@ -19,7 +19,7 @@ namespace RPG_Battle
             this.attack = attack;
             this.defense = defense;
             this.agility = agility;
-            hp = 100;
+            hp = 2;
         }
         public void display()
         {
@@ -43,6 +43,10 @@ namespace RPG_Battle
                 damageTaken = 0;
             }
             hp = hp - damageTaken;
+            if (hp <0)
+            {
+                hp = 0;
+            }
             Console.WriteLine( name + " has taken " + damageTaken + " damage.");
 
         }
@@ -80,6 +84,10 @@ namespace RPG_Battle
             else if (defendedDamage < attackDamage)
             {
                 hp = hp - (attackDamage - defendedDamage);
+                if (hp < 0)
+                {
+                    hp = 0;
+                }
             }
             else
             {
@@ -91,7 +99,22 @@ namespace RPG_Battle
             Console.Write(name);
             return name;
         }
-
+        public bool checkIfDead()
+        {
+            if (hp == 0)
+            {
+                Console.WriteLine("\n");
+                Console.WriteLine(name + " has died.");
+                Console.WriteLine("\n");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Game Over");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         
     }
 }
