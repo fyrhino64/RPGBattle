@@ -75,9 +75,9 @@ namespace RPG_Battle
                 Console.WriteLine("\n");
                 Console.WriteLine("Do you want to attack (a), or defend (d)?");
                 classChoice = Console.ReadLine();
-                int npcTurn = random.Next(1, 3);
-
                 // get npc turn
+                int npcTurn = random.Next(1, 3);
+                // complete turns dependent on choices players made
                 if ((npcTurn == 1) && (classChoice == "a"))
                 {
                     Console.WriteLine("You attack! ");
