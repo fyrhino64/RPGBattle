@@ -75,7 +75,7 @@ namespace RPG_Battle
                 Console.WriteLine("\n");
                 Console.WriteLine("Do you want to attack (a), or defend (d)?");
                 classChoice = Console.ReadLine();
-                // get npc turn
+                // get npc turn, if turn = 1, NPC attacks, if 2 NPC Defends
                 int npcTurn = random.Next(1, 3);
                 // complete turns dependent on choices players made
                 if (getTurnOrder(npc.agility, human.agility, human.name, npc.name))
@@ -84,21 +84,38 @@ namespace RPG_Battle
                     {
                         Console.WriteLine("You attack! ");
                         humanDamage = human.getAttackDamage();
-                        npc.getName();
-                        npc.getHit(humanDamage);
-                        if (npc.checkIfDead())
+                        if (npc.didPlayerDodge())
                         {
-                            done = true;
-                            break;
+                            npc.getName();
+                            Console.WriteLine(" dodged!");
                         }
+                        else
+                        {
+                            npc.getName();
+                            npc.getHit(humanDamage);
+                            if (npc.checkIfDead())
+                            {
+                                done = true;
+                                break;
+                            }
+                        }
+                        npc.getName();
                         Console.WriteLine(" will attack! ");
                         npcDamage = npc.getAttackDamage();
-                        human.getHit(npcDamage);
-                        human.checkIfDead();
-                        if (human.checkIfDead())
+                        if (human.didPlayerDodge())
                         {
-                            done = true;
-                            break;
+                            human.getName();
+                            Console.Write(" dodged!");
+                        }
+                        else
+                        {
+                            human.getHit(npcDamage);
+                            human.checkIfDead();
+                            if (human.checkIfDead())
+                            {
+                                done = true;
+                                break;
+                            }
                         }
 
                     }
@@ -169,23 +186,43 @@ namespace RPG_Battle
                     else if ((npcTurn == 1) && (classChoice == "d"))
                     {
                         npc.getName();
-                        Console.WriteLine(" will attack for " + npcDamage);
-                        human.defendAgainstAttack(humanDefended, npcDamage);
-                        if (human.checkIfDead())
+                        Console.WriteLine(" will attack!");
+                        if (human.didPlayerDodge())
                         {
-                            done = true;
-                            break;
+                            human.getName();
+                            Console.WriteLine(" dodged!");
+                        }
+                        else
+                        {
+                            npc.getName();
+                            Console.WriteLine(" attacks for " + npcDamage);
+                            human.defendAgainstAttack(humanDefended, npcDamage);
+                            if (human.checkIfDead())
+                            {
+                                done = true;
+                                break;
+                            }
                         }
                     }
                     else if ((npcTurn == 2) && (classChoice == "a"))
                     {
                         human.getName();
-                        Console.WriteLine(" will attack for " + humanDamage);
-                        npc.defendAgainstAttack(npcDefended, humanDamage);
-                        if (npc.checkIfDead())
+                        Console.WriteLine(" will attack!");
+                        if (npc.didPlayerDodge())
                         {
-                            done = true;
-                            break;
+                            npc.getName();
+                            Console.WriteLine(" dodged!");
+                        }
+                        else
+                        {
+                            human.getName();
+                            Console.WriteLine(" attacks for " + humanDamage);
+                            npc.defendAgainstAttack(npcDefended, humanDamage);
+                            if (npc.checkIfDead())
+                            {
+                                done = true;
+                                break;
+                            }
                         }
                     }
                 }

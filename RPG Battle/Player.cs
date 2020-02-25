@@ -115,10 +115,11 @@ namespace RPG_Battle
                 return false;
             }
         }
-        public bool didPlayerDodge(int agility)
+        // percent chance to skip get hit phase for no damage 
+        public bool didPlayerDodge()
         {
             int chance = random.Next(100);
-            if (chance <= 5)
+            if (chance <= 100)
             {
                 return true;
             }
