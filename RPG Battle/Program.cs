@@ -78,54 +78,136 @@ namespace RPG_Battle
                 // get npc turn
                 int npcTurn = random.Next(1, 3);
                 // complete turns dependent on choices players made
-                if ((npcTurn == 1) && (classChoice == "a"))
+                if (getTurnOrder(npc.agility, human.agility, human.name, npc.name))
                 {
-                    Console.WriteLine("You attack! ");
-                    humanDamage = human.getAttackDamage();
-                    npc.getName();
-                    Console.WriteLine(" will attack! ");
-                    npcDamage = npc.getAttackDamage();
-                    human.getHit(npcDamage);
-                    npc.getHit(humanDamage);
+                    if ((npcTurn == 1) && (classChoice == "a"))
+                    {
+                        Console.WriteLine("You attack! ");
+                        humanDamage = human.getAttackDamage();
+                        npc.getName();
+                        npc.getHit(humanDamage);
+                        if (npc.checkIfDead())
+                        {
+                            done = true;
+                            break;
+                        }
+                        Console.WriteLine(" will attack! ");
+                        npcDamage = npc.getAttackDamage();
+                        human.getHit(npcDamage);
+                        human.checkIfDead();
+                        if (human.checkIfDead())
+                        {
+                            done = true;
+                            break;
+                        }
+
+                    }
+                    else if ((npcTurn == 2) && (classChoice == "d"))
+                    {
+                        humanDefended = human.getDefense();
+                        human.doTheDefend(humanDefended);
+                        npc.getName();
+                        Console.WriteLine(" will defend!");
+                        npcDefended = npc.getDefense();
+                        npc.doTheDefend(npcDefended);
+                    }
+                    else if ((npcTurn == 1) && (classChoice == "d"))
+                    {
+                        human.defendAgainstAttack(humanDefended, npcDamage);
+                        npc.getName();
+                        Console.WriteLine(" will attack for " + npcDamage);
+                        if (human.checkIfDead())
+                        {
+                            done = true;
+                            break;
+                        }
+                    }
+                    else if ((npcTurn == 2) && (classChoice == "a"))
+                    {
+                        human.getName();
+                        Console.WriteLine(" will attack for " + humanDamage);
+                        npc.defendAgainstAttack(npcDefended, humanDamage);
+                        if (npc.checkIfDead())
+                        {
+                            done = true;
+                            break;
+                        }
+                    }
                 }
-                else if ((npcTurn == 2) && (classChoice == "d"))
+
+                else
                 {
-                    humanDefended = human.getDefense();
-                    human.doTheDefend(humanDefended);
-                    npc.getName();
-                    Console.WriteLine(" will defend!");
-                    npcDefended = npc.getDefense();
-                    npc.doTheDefend(npcDefended);
+                    if ((npcTurn == 1) && (classChoice == "a"))
+                    {
+                        npc.getName();
+                        Console.WriteLine(" will attack! ");
+                        humanDamage = human.getAttackDamage();
+                        npcDamage = npc.getAttackDamage();
+                        human.getHit(npcDamage);
+                        if (human.checkIfDead())
+                        {
+                            done = true;
+                            break;
+                        }
+                        Console.WriteLine("You attack! ");
+                        npc.getHit(humanDamage);
+                        if (npc.checkIfDead())
+                        {
+                            done = true;
+                            break;
+                        }
+                    }
+                    else if ((npcTurn == 2) && (classChoice == "d"))
+                    {
+                        humanDefended = human.getDefense();
+                        human.doTheDefend(humanDefended);
+                        npc.getName();
+                        Console.WriteLine(" will defend!");
+                        npcDefended = npc.getDefense();
+                        npc.doTheDefend(npcDefended);
+                    }
+                    else if ((npcTurn == 1) && (classChoice == "d"))
+                    {
+                        npc.getName();
+                        Console.WriteLine(" will attack for " + npcDamage);
+                        human.defendAgainstAttack(humanDefended, npcDamage);
+                        if (human.checkIfDead())
+                        {
+                            done = true;
+                            break;
+                        }
+                    }
+                    else if ((npcTurn == 2) && (classChoice == "a"))
+                    {
+                        human.getName();
+                        Console.WriteLine(" will attack for " + humanDamage);
+                        npc.defendAgainstAttack(npcDefended, humanDamage);
+                        if (npc.checkIfDead())
+                        {
+                            done = true;
+                            break;
+                        }
+                    }
                 }
-                else if ((npcTurn == 1) && (classChoice == "d"))
-                {
-                    npc.getName();
-                    Console.WriteLine(" will attack for " + npcDamage);
-                    human.defendAgainstAttack(humanDefended, npcDamage);
-                }
-                else if ((npcTurn ==2) && (classChoice == "a"))
-                {
-                    human.getName();
-                    Console.WriteLine(" will attack for " + humanDamage);
-                    npc.defendAgainstAttack(npcDefended, humanDamage);
-                }
-                // Check for deaths
-                if (human.checkIfDead())
-                {
-                    done = true;
-                    break;
-                }
-                if (npc.checkIfDead())
-                {
-                    done = true;
-                    break;
-                }
-                
             }
             Console.ResetColor();
             Console.WriteLine("Please hit any key to end the game");
             Console.ReadKey();
         }
+        //if human player's agility is greater than or equal to the npc player, the player will go first
+        static bool getTurnOrder(int npcAgility, int humanAgility, string humanName, string npcName)
+        {
+            if (npcAgility <= humanAgility)
+            {
+                Console.WriteLine("The player will go first");
+                return true;
 
+            }
+            else
+            {
+                Console.WriteLine(npcName + " will go first");
+                return false;
+            }
+        }
     }
 }
