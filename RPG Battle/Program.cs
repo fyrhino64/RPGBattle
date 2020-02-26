@@ -84,14 +84,13 @@ namespace RPG_Battle
                     {
                         Console.WriteLine("You attack! ");
                         humanDamage = human.getAttackDamage();
-                        if (npc.didPlayerDodge())
+                        if (npc.didPlayerDodge(npc.agility))
                         {
                             npc.getName();
                             Console.WriteLine(" dodged!");
                         }
                         else
                         {
-                            npc.getName();
                             npc.getHit(humanDamage);
                             if (npc.checkIfDead())
                             {
@@ -102,7 +101,7 @@ namespace RPG_Battle
                         npc.getName();
                         Console.WriteLine(" will attack! ");
                         npcDamage = npc.getAttackDamage();
-                        if (human.didPlayerDodge())
+                        if (human.didPlayerDodge(human.agility))
                         {
                             human.getName();
                             Console.Write(" dodged!");
@@ -187,7 +186,7 @@ namespace RPG_Battle
                     {
                         npc.getName();
                         Console.WriteLine(" will attack!");
-                        if (human.didPlayerDodge())
+                        if (human.didPlayerDodge(human.agility))
                         {
                             human.getName();
                             Console.WriteLine(" dodged!");
@@ -208,7 +207,7 @@ namespace RPG_Battle
                     {
                         human.getName();
                         Console.WriteLine(" will attack!");
-                        if (npc.didPlayerDodge())
+                        if (npc.didPlayerDodge(npc.agility))
                         {
                             npc.getName();
                             Console.WriteLine(" dodged!");
