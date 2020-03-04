@@ -63,14 +63,17 @@ namespace RPG_Battle
             }
             tempName = "George";
             npc.setup(tempName, tempAttack, tempDefense, tempAgility);
-
             bool done = false;
             while (!done)
             {
+                System.Threading.Thread.Sleep(400);
                 Console.WriteLine("\n");
                 // Display stats
                 human.display();
+                System.Threading.Thread.Sleep(200);
+                Console.WriteLine("\n");
                 npc.display();
+                System.Threading.Thread.Sleep(500);
                 // Get human turn
                 Console.WriteLine("\n");
                 Console.WriteLine("Do you want to attack (a), or defend (d)?");
@@ -80,10 +83,12 @@ namespace RPG_Battle
                 // complete turns dependent on choices players made
                 if (getTurnOrder(npc.agility, human.agility, human.name, npc.name))
                 {
+                    System.Threading.Thread.Sleep(500);
                     if ((npcTurn == 1) && (classChoice == "a"))
                     {
                         Console.WriteLine("You attack! ");
                         humanDamage = human.getAttackDamage();
+                        System.Threading.Thread.Sleep(400);
                         if (npc.didPlayerDodge(npc.agility))
                         {
                             npc.getName();
@@ -98,6 +103,7 @@ namespace RPG_Battle
                                 break;
                             }
                         }
+                        System.Threading.Thread.Sleep(400);
                         npc.getName();
                         Console.WriteLine(" will attack! ");
                         npcDamage = npc.getAttackDamage();
